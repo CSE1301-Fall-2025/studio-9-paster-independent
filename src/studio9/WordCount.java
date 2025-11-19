@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import support.cse131.NotYetImplementedException;
 
@@ -29,10 +30,19 @@ public class WordCount {
 	 *         associated with the number of occurrences of the word
 	 */
 	public static Map<String, Integer> countWords(List<String> words) {
-
-		// FIXME
-		throw new NotYetImplementedException();
-
+		Map<String, Integer> wordCounts = new HashMap<String, Integer>();
+		String wordList = words.toString().replaceAll(",|\\[|\\]","");
+		Scanner wordScanner = new Scanner(wordList);
+		while(wordScanner.hasNext()){
+			String currentWord = wordScanner.next();
+			if(!wordCounts.containsKey(currentWord)){
+				wordCounts.put(currentWord, 1);
+			} else {
+				wordCounts.put(currentWord, wordCounts.get(currentWord)+1);
+			}
+		}
+		wordScanner.close();
+		return wordCounts;
 	}
 	
 	public static void main(String[] args) {
@@ -46,7 +56,6 @@ public class WordCount {
 		wordList.add("be");
 		Map<String, Integer> words = countWords(wordList);
 		
-		//TODO: Write code that will iterate over the words map
-		//to verify its contents
+		System.out.println(words.toString());
 	}
 }
